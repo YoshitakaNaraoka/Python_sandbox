@@ -11,6 +11,15 @@ def check_hit_and_blow(secret, guess):
   for i in range(len(secret)):
     if secret[i] == guess[i]:
       hit += 1
+      
+  # 重複数のカウント
+  hit_and_blow = 0
+  for num in secret:
+    if num in guess:
+      hit_and_blow += 1
+      
+  # ブロー =重複数からヒット数を引く
+  blow = hit_and_blow - hit
   
   return hit, blow
 
