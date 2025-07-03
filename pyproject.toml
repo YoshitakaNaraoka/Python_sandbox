@@ -3,10 +3,12 @@ name = "python-sandbox"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.9,<3.10"
+requires-python = ">=3.9,<3.10" # Python 3.9を維持
 dependencies = [
-    "matplotlib>=3.10.3",
-    "numpy>=2.3.1",
+    "librosa", # librosaを追加。uvがPython 3.9と互換性のあるlibrosaバージョンを探します。
+    # Python 3.9と互換性のある matplotlib や numpy の古いバージョンを特定し、明示的に指定する必要がある可能性があります。
+    # 例: "matplotlib<3.5", "numpy<1.22" のように。
+    # ただし、librosaがこれらの古いバージョンで動作するかは、librosaのリリースノートなどで確認が必要です。
     "pyaudio>=0.2.14",
     "soundfile>=0.13.1",
 ]
@@ -18,10 +20,8 @@ python-sandbox = "python_sandbox:main"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-# ★ここから追加・修正★
 [tool.hatch.build.targets.wheel]
-packages = ["src/python_sandbox"] # src ディレクトリ以下にある場合
-# ★ここまで追加・修正★
+packages = ["src/python_sandbox"]
 
 [dependency-groups]
 dev = [
