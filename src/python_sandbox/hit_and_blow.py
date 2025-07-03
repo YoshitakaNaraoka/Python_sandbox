@@ -62,4 +62,13 @@ while True:
     
     # ユーザーの推測値を正解と比較し，ヒット数とブロー数を返す
     hit, blow = check_hit_and_blow(secret_numbers, guess_list)
-    print(f'ヒット: {hit}, ブロー: {blow}')
+    
+    # 結果表示
+    if hit == n:
+        print(f'正解！ゲームクリアです！正解={secret_numbers}')
+        print(f'{trial_count}回で正解しました．')
+        break
+    else:
+        print(f'ヒット={hit}ブロー={blow}')
+        
+print('ゲームを終了します．')
