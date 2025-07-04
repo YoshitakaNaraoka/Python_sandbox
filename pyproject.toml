@@ -12,6 +12,7 @@ dependencies = [
     "matplotlib>=3.9.4",
     "pyaudio>=0.2.14",
     "soundfile>=0.13.1",
+    "speechrecognition>=3.14.3",
 ]
 
 [project.scripts]
