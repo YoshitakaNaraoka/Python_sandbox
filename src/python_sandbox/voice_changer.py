@@ -71,7 +71,8 @@ def graph_plot(x, y):
     ax.set_ylabel('Amplitude')
 
     # グラフの描画
-    ax.plot(x, y)
+    for x_axis, y_axis in zip(x, y):
+        ax.plot(x_axis, y_axis)
 
     # グラフの表示
     plt.show()
@@ -97,7 +98,7 @@ pa.terminate()
 # グラフをプロットする
 dt = 1 / sampling_rate
 t = np.arange(0, len(waveform) * dt, dt)
-graph_plot(t, waveform)
+graph_plot([t], [waveform])
 
 # wav ファイルに保存する
 filename = 'recording.wav'
@@ -110,3 +111,6 @@ waveform_shifted = librosa.effects.pitch_shift(waveform, sr=sampling_rate, n_ste
 # ピッチシフトされた音声を保存する
 filename = 'recording_shifted.wav'
 sf.write(filename, waveform_shifted, sampling_rate)
+
+# 音声をグラフで比較する
+graph_plot([t, t], [waveform, waveform_shifted])
