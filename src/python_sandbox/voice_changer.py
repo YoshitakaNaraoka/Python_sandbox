@@ -1,4 +1,5 @@
 import pyaudio
+import numpy as np
 
 def get_mic_index(pa):
   """マイクチャンネルを取得する関数"""
@@ -14,9 +15,57 @@ def get_mic_index(pa):
       
       return mic_list[0]
     
+def record(pa, index, duration):
+    """マイクから音声を録音する関数"""
+    
+    # 録音条件
+    sampling_rate = 44100
+    frame_size = 1024
+    
+    # ストリームを開く
+    stream = pa.open(format=pyaudio.paInt16,
+                     channels=1,
+                     rate=sampling_rate,
+                     input=True,
+                     input_device_index=index,
+                     frames_per_buffer=frame_size)
+    # ループ数の設定
+    dt = 1 / sampling_rate
+    n = int((duration / dt) / frame_size)
+    print(n)
+    
+    # 録音する
+    waveform = []
+    print('start recording...')
+    for i in range(n):
+        frame = stream.read(frame_size)
+        waveform.append(frame)
+    
+    # ストリームの終了
+    stream.stop_stream()
+    stream.close()
+    
+    # データをまとめる
+    waveform = b''.join(waveform)
+    
+    # バイトデータを数値データに変換
+    byte_to_num = np.frombuffer(waveform, dtype='int16')
+    
+    # 最大値を計算
+    max_value = float((2 ** 16 / 2) - 1)
+    
+    # 波形を正規化
+    normalized_waveform = byte_to_num / max_value
+    
+    return normalized_waveform, sampling_rate
+    
 # PyAudio を準備する
 pa = pyaudio.PyAudio()
 
 # マイクチャンネルを自動取得
 index = get_mic_index(pa)
 print(index)
+
+# 計測条件を設定して録音関数を実行
+duration = 5
+record(pa, index, duration)
