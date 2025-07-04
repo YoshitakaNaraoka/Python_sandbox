@@ -62,17 +62,25 @@ def tamego_to_teineigo(text):
   
 r = sr.Recognizer()
 
-with sr.Microphone() as source:
-    r.adjust_for_ambient_noise(source, duration=1)
-    print('マイクに向かってタメ口で話しかけてください')
-    audio = r.listen(source)
-    
-try:
-    recognized_text = r.recognize_google(audio, language='ja')
-    print(f'音声認識結果「{recognized_text}」')
-    teinei_text = tamego_to_teineigo(recognized_text)
-    print(f'丁寧語変換結果「{teinei_text}」')
-except sr.UnknownValueError:
-    print('認識できませんでした．')
-except sr.RequestError as e:
-    print('ネットワークエラーが発生しました．')
+is_first_time = True
+while True:
+    with sr.Microphone() as source:
+        if is_first_time:
+            r.adjust_for_ambient_noise(source, duration=1)
+            is_first_time = False
+        print('マイクに向かってタメ口で話しかけてください')
+        audio = r.listen(source)
+        
+    try:
+        recognized_text = r.recognize_google(audio, language='ja')
+        print(f'音声認識結果「{recognized_text}」')
+        teinei_text = tamego_to_teineigo(recognized_text)
+        print(f'丁寧語変換結果「{teinei_text}」')
+        
+        if 'プログラム終了' in teinei_text:
+            break
+    except sr.UnknownValueError:
+        print('認識できませんでした．')
+    except sr.RequestError as e:
+        print('ネットワークエラーが発生しました．')
+        print(f'エラー内容：{e}')
