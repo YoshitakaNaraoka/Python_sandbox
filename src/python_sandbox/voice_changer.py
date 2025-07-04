@@ -2,6 +2,7 @@ import pyaudio
 import numpy as np
 from matplotlib import pyplot as plt
 import soundfile as sf
+import librosa
 
 def get_mic_index(pa):
     """マイクチャンネルを取得する関数"""
@@ -101,3 +102,11 @@ graph_plot(t, waveform)
 # wav ファイルに保存する
 filename = 'recording.wav'
 sf.write(filename, waveform, sampling_rate)
+
+# ボイスチェンジする
+n_steps = 8
+waveform_shifted = librosa.effects.pitch_shift(waveform, sr=sampling_rate, n_steps=n_steps)
+
+# ピッチシフトされた音声を保存する
+filename = 'recording_shifted.wav'
+sf.write(filename, waveform_shifted, sampling_rate)
