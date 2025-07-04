@@ -9,6 +9,7 @@ dependencies = [
     # Python 3.9と互換性のある matplotlib や numpy の古いバージョンを特定し、明示的に指定する必要がある可能性があります。
     # 例: "matplotlib<3.5", "numpy<1.22" のように。
     # ただし、librosaがこれらの古いバージョンで動作するかは、librosaのリリースノートなどで確認が必要です。
+    "matplotlib>=3.9.4",
     "pyaudio>=0.2.14",
     "soundfile>=0.13.1",
 ]

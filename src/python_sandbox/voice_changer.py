@@ -1,19 +1,21 @@
 import pyaudio
 import numpy as np
+from matplotlib import pyplot as plt
+import soundfile as sf
 
 def get_mic_index(pa):
-  """マイクチャンネルを取得する関数"""
+    """マイクチャンネルを取得する関数"""
   
-  # マイクチャンネル一覧をリストに追加する
-  mic_list = []
-  for i in range(pa.get_device_count()):
-    device_info = pa.get_device_info_by_index(i)
-    num_of_imput_ch = device_info['maxInputChannels']
-    
-    if num_of_imput_ch > 0:
-      mic_list.append(device_info['index'])
+    # マイクチャンネル一覧をリストに追加する
+    mic_list = []
+    for i in range(pa.get_device_count()):
+      device_info = pa.get_device_info_by_index(i)
+      num_of_imput_ch = device_info['maxInputChannels']
       
-      return mic_list[0]
+      if num_of_imput_ch > 0:
+        mic_list.append(device_info['index'])
+        
+        return mic_list[0]
     
 def record(pa, index, duration):
     """マイクから音声を録音する関数"""
@@ -58,7 +60,24 @@ def record(pa, index, duration):
     normalized_waveform = byte_to_num / max_value
     
     return normalized_waveform, sampling_rate
+  
+def graph_plot(x, y):
+    """波形をグラフにする関数"""
     
+    # グラフの設定
+    fig, ax = plt.subplots()
+    ax.set_xlabel('Time [s]')
+    ax.set_ylabel('Amplitude')
+
+    # グラフの描画
+    ax.plot(x, y)
+
+    # グラフの表示
+    plt.show()
+    plt.close()
+
+    return
+
 # PyAudio を準備する
 pa = pyaudio.PyAudio()
 
@@ -68,4 +87,17 @@ print(index)
 
 # 計測条件を設定して録音関数を実行
 duration = 5
-record(pa, index, duration)
+waveform, sampling_rate = record(pa, index, duration)
+print(len(waveform), waveform)
+
+# PyAudio を終了する
+pa.terminate()
+
+# グラフをプロットする
+dt = 1 / sampling_rate
+t = np.arange(0, len(waveform) * dt, dt)
+graph_plot(t, waveform)
+
+# wav ファイルに保存する
+filename = 'recording.wav'
+sf.write(filename, waveform, sampling_rate)
