@@ -446,6 +446,7 @@ dependencies = [
     { name = "librosa" },
     { name = "matplotlib" },
     { name = "pyaudio" },
+    { name = "rdkit" },
     { name = "soundfile" },
     { name = "speechrecognition" },
 ]
@@ -461,12 +462,29 @@ requires-dist = [
     { name = "librosa" },
     { name = "matplotlib", specifier = ">=3.9.4" },
     { name = "pyaudio", specifier = ">=0.2.14" },
+    { name = "rdkit", specifier = "==2025.3.3" },
     { name = "soundfile", specifier = ">=0.13.1" },
     { name = "speechrecognition", specifier = ">=3.14.3" },
 ]
 
 [package.metadata.requires-dev]
 dev = [{ name = "ruff", specifier = ">=0.12.1" }]
+
+[[package]]
+name = "rdkit"
+version = "2025.3.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "pillow" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/07/ba/0e7ddcb6e1f2e721af1fb423c8fce6ed76f1e0f1d233c5a97ea230beffab/rdkit-2025.3.3-cp39-cp39-macosx_10_15_x86_64.whl", hash = "sha256:d82a835d5f832f555e0d6cf7c4eea48bda9351cca55b43f38da1bc6b78a7bed6", size = 30081572, upload-time = "2025-06-12T07:27:22.498Z" },
+    { url = "https://files.pythonhosted.org/packages/f7/42/9156131dacb9b3ad3583455f896e37688f09ac8ddb1fd570ffbef04d7a68/rdkit-2025.3.3-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:a913e5f36e40ab0e4ec50025775a0d38a1f4ba3ba2ae06cf58c59d33744586fe", size = 27696634, upload-time = "2025-06-12T07:27:25.786Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/77/dffe81f444d0b476c5c6eb694cf705f03088c231dc07f7a877cdd213e99f/rdkit-2025.3.3-cp39-cp39-manylinux_2_28_aarch64.whl", hash = "sha256:f9f02f323520ed40fa8c27275ece69e5c8ceef3fe4d3d66b352ceeef0b1c5a39", size = 34022476, upload-time = "2025-06-12T07:27:29.512Z" },
+    { url = "https://files.pythonhosted.org/packages/35/e0/362dcb87e7f3d944c5e5e8cf4af4744ee3b09b51a0440d6da2262de9dfdc/rdkit-2025.3.3-cp39-cp39-manylinux_2_28_x86_64.whl", hash = "sha256:639ed5e562efd292649538088019dbbf536838071b8f6081faf11a87cf7a34e0", size = 34882668, upload-time = "2025-06-12T07:27:33.741Z" },
+    { url = "https://files.pythonhosted.org/packages/74/a1/70a74d8adb03beb6a0c8ea3428d95337d1852b416497a6a88e00d119273c/rdkit-2025.3.3-cp39-cp39-win_amd64.whl", hash = "sha256:3949fa62a623adf3330907805f9dc10a1a7641a8355f5762594cb05a29e0a2be", size = 22445909, upload-time = "2025-06-12T07:27:37.103Z" },
+]
 
 [[package]]
 name = "requests"

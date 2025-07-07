@@ -12,6 +12,7 @@ dependencies = [
     # ただし、librosaがこれらの古いバージョンで動作するかは、librosaのリリースノートなどで確認が必要です。
     "matplotlib>=3.9.4",
     "pyaudio>=0.2.14",
+    "rdkit==2025.3.3",
     "soundfile>=0.13.1",
     "speechrecognition>=3.14.3",
 ]
